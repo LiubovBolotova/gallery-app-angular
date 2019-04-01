@@ -1,0 +1,243 @@
+button,
+input,
+select {
+  box-shadow: 6px 6px 6px #999;
+  transition: all 0.5s linear;
+  border-radius: 5px;
+  font-style: inherit;
+  max-height: 30px;
+  outline: 0;
+  outline-offset: 0;
+  font-family: inherit;
+}
+
+button:hover {
+  background-color: #999;
+  transition-duration: 0.3s;
+}
+
+.orderBy {
+  background-position: 95% 50%;
+  border-radius: 5px;
+  width: 220px;
+  height: 30px;
+  color: black;
+}
+
+.orderBy>select:active,
+.orderBy>select:focus {
+  color: lightblue;
+}
+
+.mainConteiner {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: black;
+}
+
+.artObjConteiner {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: inherit;
+  max-width: 90%;
+  background-color: black;
+}
+
+.artObjConteiner li {
+  list-style-type: none;
+  margin: 5px 10px;
+  align-items: center;
+}
+
+.gallery {
+  width: inherit;
+  background-color: black;
+  padding: 10px;
+}
+
+.artObject {
+  position: relative;
+  box-sizing: border-box;
+  background-size: cover;
+  width: 350px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.artObject:hover .artObj-modal {
+  display: flex;
+  transition: 0.5s;
+}
+
+.artObj-modal {
+  position: absolute;
+  min-height: 70px;
+  width: 100%;
+  font-size: 13px;
+  box-sizing: border-box;
+  line-height: normal;
+  opacity: 0.8;
+  transition: background-color 0.5s ease;
+  background-color: lightgrey;
+  padding: 1px;
+  bottom: 0;
+  border-color: #4d4d4d;
+  border-width: 1px 1px 1px 1px;
+  display: none;
+}
+
+.headerImage {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  box-shadow: 2px 2px 2px #999;
+}
+
+.webImage {
+  border-radius: 5px;
+  width: 200px;
+  height: 250px;
+  box-shadow: 2px 2px 2px #999;
+}
+
+.orderOptions {
+  display: flex;
+  width: inherit;
+  height: 40px;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  color: white;
+  background-color: black;
+}
+
+.search {
+  width: 300px;
+  height: 30px;
+  display: flex;
+}
+
+.viewParametrs {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  height: 50px;
+  align-items: center;
+  padding: 5px;
+}
+
+.paginationConteiner {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  border: none;
+  color: white;
+  float: left;
+  padding: 4px 8px;
+  text-decoration: none;
+}
+
+a:hover,
+:focus {
+  cursor: pointer;
+  color: red !important;
+}
+
+.perPage {
+  display: flex
+}
+
+.perPage button {
+  outline: 0 !important;
+  border: none;
+  background-color: transparent;
+  color: white;
+  height: 30px;
+  font-size: 15px;
+}
+
+.perPage button:hover,
+:focus,
+:active {
+  cursor: pointer;
+  color: red;
+}
+
+.overlay {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.8;
+  z-index: 2;
+  transition: all 1s linear;
+}
+
+.disabled {
+  pointer-events: none;
+  justify-content: space-between
+}
+
+#artObject-Popup {
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 20%;
+  font-size: 12px;
+  padding: 20px;
+  width: 600px;
+  height: 400px;
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 5;
+  box-shadow: 0 0 30px rgb(212, 228, 228);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  border: 3px solid #f1f1f1;
+  border-radius: 15px;
+  transition: all 0.5s linear;
+}
+
+#artObject-Popup div {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#artObject-Popup p {
+  line-height: 1.5;
+}
+
+.artObject-Popup-description {
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
+}
+
+#artObject-Popup button {
+  width: 100px;
+}
+
+.popup-buttons {
+  width: 70%;
+  margin-right: 20px;
+}
+
+.headImage {
+  width: 100%;
+  height: 5%;
+  ;
+}

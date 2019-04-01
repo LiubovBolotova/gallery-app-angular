@@ -1,0 +1,25 @@
+<div class="details-conteiner"
+*ngIf="artObject">
+
+<section class="content">
+
+  <img class="webImage"
+      [src]="artObject.artObject.webImage.url">
+
+     <div class="details-description">
+     <h3><i>{{artObject.artObject.title}}</i></h3>
+
+     <a (click)= "goToWorks()"><i>{{maker}} </i></a>
+
+     <span><i>({{artObject.artObject.dating.presentingDate}})</i></span>
+
+     <p>{{artObject.artObject.description}}</p>
+
+     <a [routerLink]="['/page', page]">Back to gallery</a>
+
+     </div>
+</section>
+
+</div>
+
+
