@@ -1,25 +1,23 @@
-<div class="details-conteiner"
-*ngIf="artObject">
+<div class="details-conteiner" *ngIf="artObject">
+  <section class="content">
+    <img class="webImage" [src]="artObject.artObject.webImage.url" />
 
-<section class="content">
+    <div class="details-description">
+      <h3>
+        <i>{{ artObject.artObject.title }}</i>
+      </h3>
 
-  <img class="webImage"
-      [src]="artObject.artObject.webImage.url">
+      <a (click)="goToWorks()"
+        ><i>{{ maker }} </i></a
+      >
 
-     <div class="details-description">
-     <h3><i>{{artObject.artObject.title}}</i></h3>
+      <span
+        ><i>({{ artObject.artObject.dating.presentingDate }})</i></span
+      >
 
-     <a (click)= "goToWorks()"><i>{{maker}} </i></a>
+      <p>{{ artObject.artObject.description }}</p>
 
-     <span><i>({{artObject.artObject.dating.presentingDate}})</i></span>
-
-     <p>{{artObject.artObject.description}}</p>
-
-     <a [routerLink]="['/page', page]">Back to gallery</a>
-
-     </div>
-</section>
-
+      <a [routerLink]="['/page', page]">Back to gallery</a>
+    </div>
+  </section>
 </div>
-
-

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from "@angular/router";
-
+import { Router } from '@angular/router';
 
 import { ArtObjectService } from '../art-object.service';
 import { catchError } from 'rxjs/operators';
@@ -10,10 +9,9 @@ import { throwError } from 'rxjs';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.css']
+  styleUrls: ['./main-page.component.css'],
 })
 export class MainPageComponent implements OnInit {
-
   public currentPage: number;
   public query = new FormControl('');
   public artObjects = [];
@@ -29,34 +27,32 @@ export class MainPageComponent implements OnInit {
   public favouriteObjects: number = 0;
   public newQuery: string;
 
-
   private userQuery: {} = {};
 
-
-  constructor(
-    private artObjectService: ArtObjectService,
-    private _router: Router,
-  ) {}
+  constructor(private artObjectService: ArtObjectService, private _router: Router) {}
 
   ngOnInit() {
-      this.search();
+    this.search();
   }
 
   public search(page?: number, perPage?: number, orderByParam?: string) {
-    if (page === undefined) {
-      this.currentPage = +JSON.parse(localStorage.getItem('userQuery')).page || 1
-      this.newQuery  =  JSON.parse(localStorage.getItem('userQuery')).query;
+    if (page === undefined && localStorage.getItem('userQuery')) {
+      this.currentPage = +JSON.parse(localStorage.getItem('userQuery')).page || 1;
+      this.newQuery = JSON.parse(localStorage.getItem('userQuery')).query;
     }
 
-    this.artObjectService.getList$(
-      this.query.value || this.newQuery || '', page || this.currentPage || 1, perPage || this.perPage || 10,
-      orderByParam
-    )
+    this.artObjectService
+      .getList$(
+        this.query.value || this.newQuery || '',
+        page || this.currentPage || 1,
+        perPage || this.perPage || 10,
+        orderByParam,
+      )
       .pipe(
-        catchError(err => {
+        catchError((err) => {
           console.log('caught mapping error and rethrowing', err);
           return throwError(err);
-      }),
+        }),
       )
       .subscribe((data: any) => {
         if (data) {
@@ -68,7 +64,7 @@ export class MainPageComponent implements OnInit {
           this.userQuery = {
             page: this.currentPage,
             query: this.query.value,
-            perPage: this.perPage
+            perPage: this.perPage,
           };
 
           localStorage.setItem('userQuery', JSON.stringify(this.userQuery));
@@ -79,17 +75,16 @@ export class MainPageComponent implements OnInit {
 
           this.pages.splice(0, this.currentPage - 2);
 
-          if (this.pages.length > 6 && this.currentPage !==this._getCountOfPages()) {
-            this.pages = this.pages.filter((page) =>
-              page <= (this.currentPage + 2)
-              || page >= (this._getCountOfPages() - 2));
+          if (this.pages.length > 6 && this.currentPage !== this._getCountOfPages()) {
+            this.pages = this.pages.filter(
+              (page) => page <= this.currentPage + 2 || page >= this._getCountOfPages() - 2,
+            );
           }
-          console.log(this.pages);
         }
-        err => console.log(err)
+
+        (err) => console.log(err);
       });
   }
-
 
   public orderByParam(orderByParam: string): void {
     this.search(this.currentPage, this.perPage, orderByParam);
@@ -112,31 +107,25 @@ export class MainPageComponent implements OnInit {
   }
 
   public prevPage(): void {
-    this.currentPage !== 1
-      ? this.currentPage--
-      : this.currentPage = this._getCountOfPages();
+    this.currentPage !== 1 ? this.currentPage-- : (this.currentPage = this._getCountOfPages());
     this.search(this.currentPage);
   }
 
   public nextPage(): void {
-    this.currentPage !== this._getCountOfPages()
-      ? this.currentPage++
-      : this.currentPage = 1;
+    this.currentPage !== this._getCountOfPages() ? this.currentPage++ : (this.currentPage = 1);
+
     this.search(this.currentPage);
   }
 
-
   private _getArtObjectDescription(artObject): void {
-    this.artObjectService.getOne$(artObject.objectNumber)
-      .subscribe((data: any) => {
-        console.log(data);
-        if (data) {
-          this.description = data.artObject.description;
-        }
-      });
+    this.artObjectService.getOne$(artObject.objectNumber).subscribe((data: any) => {
+      if (data) {
+        this.description = data.artObject.description;
+      }
+    });
   }
 
- private _getCountOfPages(): number {
-      return Math.ceil(this.count / (this.perPage || 10));
-    }
+  private _getCountOfPages(): number {
+    return Math.ceil(this.count / (this.perPage || 10));
+  }
 }

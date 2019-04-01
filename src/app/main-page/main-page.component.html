@@ -1,122 +1,110 @@
-<div [class]="isPopupShown? 'overlay' : 'noOverlay'">  </div>
+<div [class]="isPopupShown ? 'overlay' : 'noOverlay'"></div>
 
-<div class="main-conteiner"
-     *ngIf="artObjects.length">
-    <img class="headImage"
-         src="../../assets/banner.jpg">
+<div class="main-conteiner" *ngIf="artObjects.length">
+  <img class="headImage" src="../../assets/banner.jpg" />
 
   <section class="orderOptions">
-
     <div class="search">
+      <input placeholder="Search keyword" [formControl]="query" />
 
-    <input placeholder="Search keyword"
-           [formControl]="query">
-
-    <button (click)="search()">Search</button>
+      <button (click)="search()">Search</button>
     </div>
 
-    <label>Order By
-        <select class="orderBy"
-                (change)="orderByParam($event.target.value)">
-          <option>relevance</option>
+    <label
+      >Order By
+      <select class="orderBy" (change)="orderByParam($event.target.value)">
+        <option>relevance</option>
 
-          <option>objecttype</option>
+        <option>objecttype</option>
 
-          <option>chronologic</option>
+        <option>chronologic</option>
 
-          <option>achronologic</option>
+        <option>achronologic</option>
 
-          <option>artist</option>
+        <option>artist</option>
 
-          <option>artistdesc</option>
-
-        </select>
+        <option>artistdesc</option>
+      </select>
     </label>
-
   </section>
 
-  <section class="viewParametrs" >
-      <div class="paginationConteiner">
-        <button [routerLink]="['/page', currentPage-1]"
-                (click)="prevPage()">
-          Prev Page
-        </button>
-
-        <div class="pagination" *ngFor="let page of pages">
-            <a  [routerLink]="['/page', page]"
-                (click)="search(page)"
-                [className]= "isPopupShown ? 'disabled' : 'anabled' ">
-              {{ page }}
-              <span *ngIf="pages.length >= 6
-                          && page === currentPage+2">
-                      ...
-             </span>
-            </a>
-        </div>
-
-        <button [routerLink]="['/page', currentPage+1]"
-                (click)="nextPage()">
-            Next Page
-        </button>
-      </div>
-
-        <div class="perPage">
-          <button type = "button"
-                  (click)="search(currentPage, 10)">
-            10
-          </button>
-
-          <button type = "button"
-                  (click)="search(currentPage, 50)">
-            50
-          </button>
-
-          <button type = "button"
-                  (click)="search(currentPage, 100)">
-            100
-          </button>
-        </div>
-    </section>
-
-  <section class=gallery>
-    <ul class="artObjConteiner">
-      <li class="artObject" *ngFor="let artObject of artObjects;">
-        <img class="headerImage"
-             [src]="artObject.headerImage.url"
-            (click)="showArtObjectPopup(artObject)">
-
-        <div class="artObj-modal">
-
-        <p>{{artObject.longTitle}}<p>
-      </div>
-    </li>
-    </ul>
-  </section>
-
-</div>
-
-  <div id="artObject-Popup"
-       *ngIf="artObject && isPopupShown && description">
-    <div>
-
-        <img class="webImage"
-             [src]="artObject.webImage.url">
-
-        <div class="artObject-Popup-description">
-          <h3><i>{{artObject.title}}</i></h3>
-
-          <p>{{description}}</p>
-        </div>
-    </div>
-
-    <div class="popup-buttons">
-      <button type="button" >Add to fav list</button>
-
-      <button type="button"
-              (click)="goToDetailsPage(artObject.objectNumber)">
-          View more details
+  <section class="viewParametrs">
+    <div class="paginationConteiner">
+      <button [routerLink]="['/page', currentPage - 1]" (click)="prevPage()">
+        Prev Page
       </button>
 
-      <button (click)="closePopup()">Close</button>
+      <div class="pagination" *ngFor="let page of pages">
+        <a
+          [routerLink]="['/page', page]"
+          (click)="search(page)"
+          [className]="isPopupShown ? 'disabled' : 'anabled'"
+        >
+          {{ page }}
+          <span *ngIf="pages.length >= 6 && page === currentPage + 2">
+            ...
+          </span>
+        </a>
+      </div>
+
+      <button [routerLink]="['/page', currentPage + 1]" (click)="nextPage()">
+        Next Page
+      </button>
+    </div>
+
+    <div class="perPage">
+      <button type="button" (click)="search(currentPage, 10)">
+        10
+      </button>
+
+      <button type="button" (click)="search(currentPage, 50)">
+        50
+      </button>
+
+      <button type="button" (click)="search(currentPage, 100)">
+        100
+      </button>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <ul class="artObjConteiner">
+      <li class="artObject" *ngFor="let artObject of artObjects">
+        <img
+          class="headerImage"
+          [src]="artObject.headerImage.url"
+          (click)="showArtObjectPopup(artObject)"
+        />
+
+        <div class="artObj-modal">
+          <p>{{ artObject.longTitle }}</p>
+          <p></p>
+        </div>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<div id="artObject-Popup" *ngIf="artObject && isPopupShown && description">
+  <div>
+    <img class="webImage" [src]="artObject.webImage.url" />
+
+    <div class="artObject-Popup-description">
+      <h3>
+        <i>{{ artObject.title }}</i>
+      </h3>
+
+      <p>{{ description }}</p>
     </div>
   </div>
+
+  <div class="popup-buttons">
+    <button type="button">Add to fav list</button>
+
+    <button type="button" (click)="goToDetailsPage(artObject.objectNumber)">
+      View more details
+    </button>
+
+    <button (click)="closePopup()">Close</button>
+  </div>
+</div>

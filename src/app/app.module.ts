@@ -11,13 +11,8 @@ import { AppComponent } from './app.component';
 import { DetailsPageComponent } from './details-page/details-page.component';
 import { MainPageComponent } from './main-page/main-page.component';
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainPageComponent,
-    DetailsPageComponent
-  ],
+  declarations: [AppComponent, MainPageComponent, DetailsPageComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,
@@ -26,6 +21,6 @@ import { MainPageComponent } from './main-page/main-page.component';
     RouterModule.forRoot(routes),
   ],
   providers: [ArtObjectService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
