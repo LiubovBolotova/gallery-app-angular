@@ -34,16 +34,6 @@ export class DetailsPageComponent implements OnInit {
           this.maker = this.artObject.artObject.principalMakers[0].name;
         }
       });
-    this.page = +JSON.parse(localStorage.getItem('userQuery')).page;
-  }
-
-  public goToWorks(): void {
-    this.userQuery = {
-      page: 1,
-      query: this.maker,
-      perPage: 10,
-    };
-    localStorage.setItem('userQuery', JSON.stringify(this.userQuery));
-    this._router.navigate(['/page', 1]);
+    this.page = +JSON.parse(localStorage.getItem('page'));
   }
 }

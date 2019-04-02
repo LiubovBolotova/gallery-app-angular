@@ -1,6 +1,6 @@
 <div [class]="isPopupShown ? 'overlay' : 'noOverlay'"></div>
 
-<div class="main-conteiner" *ngIf="artObjects.length">
+<div class="main-conteiner">
   <img class="headImage" src="../../assets/banner.jpg" />
 
   <section class="orderOptions">
@@ -10,33 +10,40 @@
       <button (click)="search()">Search</button>
     </div>
 
-    <label
-      >Order By
-      <select class="orderBy" (change)="orderByParam($event.target.value)">
-        <option>relevance</option>
+    <div class="orderBy">
+      <label>
+        Order By
+        <select (change)="orderByParam($event.target.value)">
+          <option>relevance</option>
 
-        <option>objecttype</option>
+          <option>objecttype</option>
 
-        <option>chronologic</option>
+          <option>chronologic</option>
 
-        <option>achronologic</option>
+          <option>achronologic</option>
 
-        <option>artist</option>
+          <option>artist</option>
 
-        <option>artistdesc</option>
-      </select>
-    </label>
+          <option>artistdesc</option>
+        </select>
+      </label>
+    </div>
   </section>
 
   <section class="viewParametrs">
     <div class="paginationConteiner">
-      <button [routerLink]="['/page', currentPage - 1]" (click)="prevPage()">
+      <button
+        [routerLink]="['/artists', currentPage > 1 ? currentPage - 1 : 1]"
+        [queryParams]="newQuery !== '' ? { artist: newQuery } : ''"
+        (click)="prevPage()"
+      >
         Prev Page
       </button>
 
       <div class="pagination" *ngFor="let page of pages">
         <a
-          [routerLink]="['/page', page]"
+          [routerLink]="['/artists', page]"
+          [queryParams]="newQuery !== '' ? { artist: newQuery } : ''"
           (click)="search(page)"
           [className]="isPopupShown ? 'disabled' : 'anabled'"
         >
@@ -47,7 +54,11 @@
         </a>
       </div>
 
-      <button [routerLink]="['/page', currentPage + 1]" (click)="nextPage()">
+      <button
+        [routerLink]="['/artists', currentPage + 1]"
+        [queryParams]="newQuery !== '' ? { artist: newQuery } : ''"
+        (click)="nextPage()"
+      >
         Next Page
       </button>
     </div>
@@ -68,21 +79,25 @@
   </section>
 
   <section class="gallery">
-    <ul class="artObjConteiner">
+    <ul class="artObjConteiner" *ngIf="artObjects.length">
       <li class="artObject" *ngFor="let artObject of artObjects">
         <img
           class="headerImage"
           [src]="artObject.headerImage.url"
           (click)="showArtObjectPopup(artObject)"
+          *ngIf="artObject.headerImage.url"
         />
 
         <div class="artObj-modal">
           <p>{{ artObject.longTitle }}</p>
-          <p></p>
         </div>
       </li>
     </ul>
   </section>
+
+  <div class="noResults" *ngIf="!artObjects.length">
+    No results
+  </div>
 </div>
 
 <div id="artObject-Popup" *ngIf="artObject && isPopupShown && description">
@@ -99,8 +114,6 @@
   </div>
 
   <div class="popup-buttons">
-    <button type="button">Add to fav list</button>
-
     <button type="button" (click)="goToDetailsPage(artObject.objectNumber)">
       View more details
     </button>

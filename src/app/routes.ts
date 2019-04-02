@@ -7,10 +7,12 @@ export const routes: Routes = [
     path: 'main',
     component: MainPageComponent,
   },
+
   {
-    path: 'page/: page',
+    path: 'artists/: page',
     component: MainPageComponent,
   },
+
   {
     path: '',
     redirectTo: 'main',
