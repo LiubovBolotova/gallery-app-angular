@@ -45,17 +45,17 @@
           [routerLink]="['/artists', page]"
           [queryParams]="newQuery !== '' ? { artist: newQuery } : ''"
           (click)="search(page)"
-          [className]="isPopupShown ? 'disabled' : 'anabled'"
+          [className]="page === currentPage ? 'hover' : 'no-Hover'"
         >
           {{ page }}
-          <span *ngIf="pages.length >= 6 && page === currentPage + 2">
+          <span *ngIf="countOfPages > 6 && page === currentPage + 2">
             ...
           </span>
         </a>
       </div>
 
       <button
-        [routerLink]="['/artists', currentPage + 1]"
+        [routerLink]="['/artists', countOfPages === 1 ? 1 : currentPage + 1]"
         [queryParams]="newQuery !== '' ? { artist: newQuery } : ''"
         (click)="nextPage()"
       >

@@ -3,4 +3,7 @@ body {
   padding: 0;
   font-family: 'Libre Baskerville', serif;
   background-color: black;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }

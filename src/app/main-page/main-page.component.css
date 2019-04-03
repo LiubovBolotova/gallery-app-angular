@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 button,
 input,
 select {
@@ -14,6 +18,7 @@ select {
 button:hover {
   background-color: #999;
   transition-duration: 0.3s;
+  cursor: pointer;
 }
 
 .orderBy {
@@ -33,6 +38,9 @@ button:hover {
   padding: 0;
   min-width: 100%;
   background-color: black;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .gallery {
@@ -64,7 +72,6 @@ button:hover {
 
 .artObject {
   position: relative;
-  box-sizing: border-box;
   background-size: contain;
   background-repeat: no-repeat;
   width: 250px;
@@ -83,7 +90,6 @@ button:hover {
   min-height: 70px;
   width: 100%;
   font-size: 13px;
-  box-sizing: border-box;
   line-height: normal;
   opacity: 0.8;
   transition: background-color 0.5s ease;
@@ -100,6 +106,7 @@ button:hover {
   width: auto;
   max-width: 100%;
   box-shadow: 2px 2px 2px #999;
+  cursor: pointer;
 }
 
 .noResults {
@@ -113,7 +120,7 @@ button:hover {
   max-width: 50%;
   min-width: 20%;
   min-height: 10%;
-  max-height: 250px;
+  max-height: 400px;
   box-shadow: 2px 2px 2px #999;
 }
 
@@ -166,6 +173,10 @@ a:hover,
   color: red !important;
 }
 
+.hover {
+  color: red !important;
+}
+
 .perPage {
   display: flex;
 }
@@ -202,11 +213,12 @@ a:hover,
   margin: auto;
   left: 0;
   right: 0;
-  top: 20%;
+  top: 10%;
   font-size: 12px;
   padding: 20px;
-  max-width: 50%;
+  max-width: 70%;
   min-height: 400px;
+  max-hight: 50%;
   position: fixed;
   background-color: rgba(113, 111, 111, 0.8);
   z-index: 5;
@@ -215,7 +227,6 @@ a:hover,
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
-  box-sizing: border-box;
   border: 3px solid #f1f1f1;
   border-radius: 15px;
   transition: all 0.5s linear;

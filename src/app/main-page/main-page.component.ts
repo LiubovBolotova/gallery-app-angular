@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ArtObjectService } from '../art-object.service';
-import { catchError, filter } from 'rxjs/operators';
+import { catchError, filter, debounceTime } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 @Component({
@@ -24,9 +24,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public artObjectNumber: number = this.artObjects.indexOf(this.artObject);
   public description: string = '';
   public newQuery: string = '';
+  public countOfPages: number;
 
   private sub;
-  private countOfPages: number;
 
   constructor(
     private artObjectService: ArtObjectService,
@@ -99,12 +99,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public showArtObjectPopup(artObject): void {
     this._getArtObjectDescription(artObject);
     this.artObject = artObject;
-    this.isPopupShown = true;
+    if (artObject.webImage) {
+      this.isPopupShown = true;
+    }
   }
 
   public closePopup(): void {
-    this.isPopupShown = false;
     this.description = '';
+    this.isPopupShown = false;
   }
 
   public goToDetailsPage(artObjectNumber): void {
