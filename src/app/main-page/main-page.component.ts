@@ -15,7 +15,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public currentPage: number;
   public query = new FormControl('');
   public artObjects = [];
-  public count: number;
   public numberArtObjectInPopup;
   public isPopupShown: boolean = false;
   public pages: number[] = [];
@@ -27,6 +26,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public newQuery: string = '';
 
   private sub;
+  private countOfPages: number;
 
   constructor(
     private artObjectService: ArtObjectService,
@@ -38,10 +38,12 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.sub = this.route.queryParams
       .pipe(filter((params) => params.artist))
       .subscribe((params) => {
-        this.newQuery = params.artist || 'all';
+        this.newQuery = params.artist || '';
 
         this.search();
       });
+
+    this.search();
   }
 
   public search(page?: number, perPage?: number, orderByParam?: string) {
@@ -61,22 +63,23 @@ export class MainPageComponent implements OnInit, OnDestroy {
       .subscribe((data: any) => {
         if (data) {
           this.artObjects = data.artObjects.filter((artObject) => artObject.headerImage.url);
-          this.count = data.count;
           this.currentPage = page || 1;
           this.pages = [];
           perPage ? (this.perPage = perPage) : (this.perPage = this.perPage);
           this.orderBy = orderByParam || '';
+          this.countOfPages = Math.ceil(data.countFacets.ondisplay / (this.perPage || 10));
+
           localStorage.setItem('page', JSON.stringify(this.currentPage));
 
-          for (let i = 1; i <= this._getCountOfPages(); i++) {
+          for (let i = 1; i <= this.countOfPages; i++) {
             this.pages.push(i);
           }
 
           this.pages.splice(0, this.currentPage - 2);
 
-          if (this.pages.length > 6 && this.currentPage !== this._getCountOfPages()) {
+          if (this.pages.length > 6 && this.currentPage !== this.countOfPages) {
             this.pages = this.pages.filter(
-              (page) => page <= this.currentPage + 2 || page >= this._getCountOfPages() - 2,
+              (page) => page <= this.currentPage + 2 || page >= this.countOfPages - 2,
             );
           }
         }
@@ -110,9 +113,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   public nextPage(): void {
-    this.currentPage !== this._getCountOfPages()
+    this.currentPage !== this.countOfPages
       ? this.currentPage++
-      : (this.currentPage = this._getCountOfPages());
+      : (this.currentPage = this.countOfPages);
 
     this.search(this.currentPage);
   }
@@ -125,9 +128,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  private _getCountOfPages(): number {
-    return Math.ceil(this.count / (this.perPage || 10));
-  }
+  // private _getCountOfPages(): number {
+  //   const count = Math.ceil(this.artObjects.length / 10);
+  //   return count;
+  // }
 
   ngOnDestroy() {
     this.sub.unsubscribe();

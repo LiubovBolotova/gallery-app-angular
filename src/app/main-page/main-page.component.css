@@ -31,35 +31,35 @@ button:hover {
 .mainConteiner {
   margin: 0;
   padding: 0;
-  width: 100%;
+  min-width: 100%;
+  background-color: black;
+}
+
+.gallery {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  width: inherit;
   background-color: black;
 }
 
 .artObjConteiner {
   margin: 0 auto;
-  padding: 15px;
+  width: 100%;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
   font-family: inherit;
   background-color: black;
-}
-
-ul {
-  padding: 0px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .artObjConteiner li {
   list-style-type: none;
-  margin: 20px 12px;
+  margin: 20px 15px;
   align-items: center;
-}
-
-.gallery {
-  width: inherit;
-  background-color: black;
-  padding: 10px;
 }
 
 .artObject {
@@ -162,7 +162,6 @@ a:hover,
 :focus {
   cursor: pointer;
   color: red !important;
-  font-size: 13px;
 }
 
 .perPage {
