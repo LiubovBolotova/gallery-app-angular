@@ -39,9 +39,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
       .pipe(filter((params) => params.artist))
       .subscribe((params) => {
         this.newQuery = params.artist || 'all';
-      });
 
-    this.search();
+        this.search();
+      });
   }
 
   public search(page?: number, perPage?: number, orderByParam?: string) {
