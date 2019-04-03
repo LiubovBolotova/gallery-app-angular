@@ -100,11 +100,11 @@
   </div>
 </div>
 
-<div id="artObject-Popup" *ngIf="artObject && isPopupShown && description">
+<div id="artObject-Popup" *ngIf="artObject && isPopupShown">
   <div>
     <img class="webImage" [src]="artObject.webImage.url" />
 
-    <div class="artObject-Popup-description">
+    <div class="artObject-Popup-description" *ngIf="description">
       <h3>
         <i>{{ artObject.title }}</i>
       </h3>

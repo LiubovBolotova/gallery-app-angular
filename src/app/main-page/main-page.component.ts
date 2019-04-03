@@ -67,7 +67,12 @@ export class MainPageComponent implements OnInit, OnDestroy {
           this.pages = [];
           perPage ? (this.perPage = perPage) : (this.perPage = this.perPage);
           this.orderBy = orderByParam || '';
-          this.countOfPages = Math.ceil(data.countFacets.ondisplay / (this.perPage || 10));
+          this.countOfPages =
+            Math.ceil(
+              data.countFacets.ondisplay
+                ? data.countFacets.ondisplay / (this.perPage || 10)
+                : data.countFacets.hasimage / (this.perPage || 10),
+            ) || 1;
 
           localStorage.setItem('page', JSON.stringify(this.currentPage));
 
@@ -127,11 +132,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  // private _getCountOfPages(): number {
-  //   const count = Math.ceil(this.artObjects.length / 10);
-  //   return count;
-  // }
 
   ngOnDestroy() {
     this.sub.unsubscribe();

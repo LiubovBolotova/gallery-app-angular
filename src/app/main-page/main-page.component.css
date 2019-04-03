@@ -110,8 +110,10 @@ button:hover {
 
 .webImage {
   border-radius: 5px;
-  width: 200px;
-  height: 250px;
+  max-width: 50%;
+  min-width: 20%;
+  min-height: 10%;
+  max-height: 250px;
   box-shadow: 2px 2px 2px #999;
 }
 
@@ -203,35 +205,39 @@ a:hover,
   top: 20%;
   font-size: 12px;
   padding: 20px;
-  width: 600px;
+  max-width: 50%;
   min-height: 400px;
   position: fixed;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(113, 111, 111, 0.8);
   z-index: 5;
   box-shadow: 0 0 30px rgb(212, 228, 228);
   display: flex;
+  justify-content: space-around;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   border: 3px solid #f1f1f1;
   border-radius: 15px;
   transition: all 0.5s linear;
+  color: #f1f1f1;
 }
 
 #artObject-Popup div {
   margin-bottom: 30px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
-#artObject-Popup p {
+#artObject-Popup p,
+h3 {
   line-height: 1.5;
+  font-size: 15px;
 }
 
 .artObject-Popup-description {
   display: flex;
   flex-direction: column;
-  max-width: 50%;
+  max-width: 40%;
 }
 
 #artObject-Popup button {
