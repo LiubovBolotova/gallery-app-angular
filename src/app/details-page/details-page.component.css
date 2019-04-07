@@ -1,60 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
 .details-conteiner {
   position: absolute;
   margin: 0;
-  padding: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(31, 30, 24, 0.8);
-  background-image: url('/assets/galPhoto.png');
-  background-size: contain;
-  background-repeat: no-repeat;
+  background-color: rgba(44, 44, 45, 0.803);
   font-family: inherit;
+  display: flex;
+  align-items: center;
 }
 
 a {
   color: antiquewhite;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-a:hover {
-  color: sienna;
-  cursor: pointer;
-}
-
-button {
-  box-shadow: 6px 6px 6px #999;
-  transition: all 0.5s linear;
-  border-radius: 5px;
-  font-style: inherit;
-  max-height: 30px;
-  outline: 0;
-  outline-offset: 0;
-}
-
-button:hover {
-  background-color: #999;
-  transition-duration: 0.3s;
-  cursor: pointer;
 }
 
 .webImage {
-  border-radius: 5px;
-  width: 400px;
-  height: 460px;
-  margin: 6% 0 0 13%;
-  box-shadow: 6px 6px 6px #999;
+  margin: 4% 4%;
+  max-width: 80%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .content {
-  margin: 0 auto;
-  padding: 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
   color: antiquewhite;
+  height: 100%;
+  align-items: center;
 }
 
 .details-description {
-  max-width: 30%;
+  width: 95%;
   line-height: 2;
+  flex-grow: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (min-width: 420px) {
+  img {
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 760px) {
+  img {
+    max-width: 96%;
+    max-height: 480px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+
+  .border {
+    margin: 0;
+    padding: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 65%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background-image: url('/assets/galPhoto.png');
+  }
+
+  .webImage {
+    margin: 0 auto;
+    max-height: 100%;
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    flex-grow: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content {
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .details-description {
+    min-width: 10%;
+    max-width: 30%;
+    flex-grow: inherit;
+    line-height: 2.5;
+  }
+
+  a:hover,
+  :active {
+    color: sienna;
+    cursor: pointer;
+  }
 }

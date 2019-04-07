@@ -5,7 +5,7 @@
 
   <section class="orderOptions">
     <div class="search">
-      <input placeholder="Search keyword" [formControl]="query" />
+      <input class="search-input" placeholder="Search keyword" [formControl]="query" />
 
       <button (click)="search()">Search</button>
     </div>
@@ -33,7 +33,7 @@
   <section class="viewParametrs">
     <div class="paginationConteiner">
       <button
-        [routerLink]="['/artists', currentPage > 1 ? currentPage - 1 : 1]"
+        [routerLink]="['/main', currentPage > 1 ? currentPage - 1 : 1]"
         [queryParams]="newQuery !== '' ? { artist: newQuery } : ''"
         (click)="prevPage()"
       >
@@ -42,7 +42,7 @@
 
       <div class="pagination" *ngFor="let page of pages">
         <a
-          [routerLink]="['/artists', page]"
+          [routerLink]="['/main', page]"
           [queryParams]="newQuery !== '' ? { artist: newQuery } : ''"
           (click)="search(page)"
           [className]="page === currentPage ? 'hover' : 'no-Hover'"
@@ -55,7 +55,7 @@
       </div>
 
       <button
-        [routerLink]="['/artists', countOfPages === 1 ? 1 : currentPage + 1]"
+        [routerLink]="['/main', countOfPages === 1 ? 1 : currentPage + 1]"
         [queryParams]="newQuery !== '' ? { artist: newQuery } : ''"
         (click)="nextPage()"
       >
@@ -93,16 +93,24 @@
         </div>
       </li>
     </ul>
+
+    <img
+      class="spinner"
+      src="assets/spinner.mov.gif"
+      *ngIf="!artObjects.length && !noResultsIsShown"
+    />
   </section>
 
-  <div class="noResults" *ngIf="!artObjects.length">
-    No results
+  <div class="noResults" *ngIf="noResultsIsShown">
+    No Results
   </div>
 </div>
 
 <div id="artObject-Popup" *ngIf="artObject && isPopupShown">
   <div>
-    <img class="webImage" [src]="artObject.webImage.url" />
+    <div class="webImage">
+      <img [src]="artObject.webImage.url" />
+    </div>
 
     <div class="artObject-Popup-description" *ngIf="description">
       <h3>

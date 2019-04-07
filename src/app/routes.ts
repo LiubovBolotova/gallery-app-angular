@@ -9,7 +9,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'artists/: page',
+    path: 'main/: page',
     component: MainPageComponent,
   },
 

@@ -1,13 +1,20 @@
 <div class="details-conteiner" *ngIf="artObject">
   <section class="content">
-    <img class="webImage" [src]="artObject.artObject.webImage.url" />
+    <div class="border">
+      <div class="webImage">
+        <img
+          [src]="artObject.artObject.webImage.url"
+          sizes="(max-width: 700px) 100vw, (max-width: 900px) 50vw, 33vw"
+        />
+      </div>
+    </div>
 
     <div class="details-description">
       <h3>
         <i>{{ artObject.artObject.title }}</i>
       </h3>
 
-      <a [routerLink]="['/artists', 1]" [queryParams]="{ artist: maker }">
+      <a [routerLink]="['/main', 1]" [queryParams]="{ artist: maker }">
         <i>{{ maker }} </i>
       </a>
 
@@ -17,7 +24,7 @@
 
       <p>{{ artObject.artObject.description }}</p>
 
-      <a [routerLink]="['/artists', page]">Back to gallery</a>
+      <a [routerLink]="['/main', page]">Back to gallery</a>
     </div>
   </section>
 </div>

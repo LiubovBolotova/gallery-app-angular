@@ -19,12 +19,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public isPopupShown: boolean = false;
   public pages: number[] = [];
   public orderBy: string;
-  public perPage: number = 10;
+  public perPage = 10;
   public artObject: {} = {};
   public artObjectNumber: number = this.artObjects.indexOf(this.artObject);
-  public description: string = '';
-  public newQuery: string = '';
+  public description = '';
+  public newQuery = '';
   public countOfPages: number;
+  public noResultsIsShown = false;
 
   private sub;
 
@@ -39,11 +40,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
       .pipe(filter((params) => params.artist))
       .subscribe((params) => {
         this.newQuery = params.artist || '';
-
         this.search();
       });
-
-    this.search();
+    this.search(1);
   }
 
   public search(page?: number, perPage?: number, orderByParam?: string) {
@@ -87,6 +86,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
               (page) => page <= this.currentPage + 2 || page >= this.countOfPages - 2,
             );
           }
+        }
+        if (!data.count) {
+          this.noResultsIsShown = true;
         }
         (err: any) => console.log(err);
       });

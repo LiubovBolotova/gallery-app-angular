@@ -5,11 +5,10 @@
 button,
 input,
 select {
-  box-shadow: 6px 6px 6px #999;
   transition: all 0.5s linear;
-  border-radius: 5px;
+  border-radius: 3px;
   font-style: inherit;
-  max-height: 30px;
+  max-height: 50px;
   outline: 0;
   outline-offset: 0;
   font-family: inherit;
@@ -67,14 +66,13 @@ button:hover {
 .artObjConteiner li {
   list-style-type: none;
   margin: 20px 15px;
-  align-items: center;
 }
 
 .artObject {
   position: relative;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
-  width: 250px;
+  width: 300px;
   height: 150px;
   overflow: hidden;
   border-radius: 5px;
@@ -105,7 +103,6 @@ button:hover {
   height: 100%;
   width: auto;
   max-width: 100%;
-  box-shadow: 2px 2px 2px #999;
   cursor: pointer;
 }
 
@@ -115,19 +112,14 @@ button:hover {
   text-align: center;
 }
 
-.webImage {
-  border-radius: 5px;
-  max-width: 50%;
-  min-width: 20%;
-  min-height: 10%;
-  max-height: 400px;
-  box-shadow: 2px 2px 2px #999;
+.spinner {
+  margin: 0 auto;
+  width: 10%;
 }
 
 .orderOptions {
   display: flex;
   width: inherit;
-  height: 40px;
   justify-content: space-evenly;
   align-items: center;
   padding: 10px;
@@ -141,11 +133,15 @@ button:hover {
   display: flex;
 }
 
+.search-input {
+  margin-right: 10px;
+}
+
 .viewParametrs {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   background-color: black;
-  height: 50px;
   align-items: center;
   padding: 5px;
 }
@@ -153,6 +149,7 @@ button:hover {
 .paginationConteiner {
   display: flex;
   justify-content: center;
+  margin-bottom: 15px;
 }
 
 .pagination {
@@ -188,6 +185,7 @@ a:hover,
   color: white;
   height: 30px;
   font-size: 15px;
+  box-shadow: 0 0 3px 0 rgb(212, 228, 228);
 }
 
 .perPage button:hover,
@@ -213,51 +211,117 @@ a:hover,
   margin: auto;
   left: 0;
   right: 0;
+  bottom: 10%;
   top: 10%;
-  font-size: 12px;
-  padding: 20px;
-  max-width: 70%;
-  min-height: 400px;
-  max-hight: 50%;
-  position: fixed;
-  background-color: rgba(113, 111, 111, 0.8);
+  /* font-size: 15px; */
+  padding: 2%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(113, 111, 111);
   z-index: 5;
-  box-shadow: 0 0 30px rgb(212, 228, 228);
   display: flex;
-  justify-content: space-around;
+  position: fixed;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
-  border: 3px solid #f1f1f1;
-  border-radius: 15px;
   transition: all 0.5s linear;
   color: #f1f1f1;
 }
 
-#artObject-Popup div {
-  margin-bottom: 30px;
-  display: flex;
-  justify-content: space-around;
-}
-
 #artObject-Popup p,
 h3 {
+  bottom: 5%;
   line-height: 1.5;
-  font-size: 15px;
+  font-size: 3vw;
+  text-align: justify;
+}
+
+#artObject-Popup div {
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-grow: inherit;
+}
+
+.webImage {
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  border-radius: 5px;
+  max-width: 100%;
+  min-width: 20%;
+  max-height: 100%;
+  min-height: 80%;
+  margin-right: 3%;
+}
+
+.webImage img {
+  width: 100%;
+  height: auto;
+  box-shadow: 2px 2px 2px #999;
+}
+
+@media (min-width: 760px) {
+  #artObject-Popup {
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 10%;
+    top: 10%;
+    max-height: 90%;
+    min-height: 40%;
+    max-width: 70%;
+    min-width: 40%;
+    border-radius: 15px;
+    background-color: rgba(113, 111, 111, 0.8);
+    border: 3px solid #f1f1f1;
+    box-shadow: 0 0 30px rgb(212, 228, 228);
+  }
+
+  #artObject-Popup p,
+  h3 {
+    bottom: 5%;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+
+  .webImage {
+    margin: 0;
+    max-width: 80%;
+    min-width: 5%;
+    max-height: 100%;
+    min-height: 10%;
+    border-radius: 5px;
+  }
+
+  .webImage img {
+    min-width: 10%;
+    max-width: 70%;
+    min-height: 10%;
+    max-height: 600px;
+  }
 }
 
 .artObject-Popup-description {
   display: flex;
   flex-direction: column;
-  max-width: 40%;
+  justify-content: space-around;
+  max-width: 90%;
+  min-width: 20%;
+  flex-grow: inherit;
 }
 
 #artObject-Popup button {
-  width: 100px;
+  min-width: 20%;
+  min-height: 100%;
 }
 
 .popup-buttons {
   width: 70%;
-  margin-right: 20px;
+  min-height: 5%;
+  margin: 0 auto;
 }
 
 .headImage {
