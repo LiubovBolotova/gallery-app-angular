@@ -1,19 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
-button,
-input,
-select {
-  transition: all 0.5s linear;
-  border-radius: 3px;
-  font-style: inherit;
-  max-height: 50px;
-  outline: 0;
-  outline-offset: 0;
-  font-family: inherit;
-}
-
 button:hover {
   background-color: #999;
   transition-duration: 0.3s;
@@ -21,15 +5,39 @@ button:hover {
 }
 
 .orderBy {
-  background-position: 95% 50%;
+  max-width: 45%;
+  display: flex;
   border-radius: 5px;
   color: white;
-  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .orderBy select {
   color: black;
-  height: 30px;
+  max-height: 30px;
+  font-size: 70%;
+}
+
+.search {
+  max-width: 45%;
+  display: flex;
+}
+
+.search button {
+  max-width: 35%;
+  font-size: 70%;
+  text-align: center;
+}
+
+.orderBy p {
+  display: none;
+}
+
+.search-input {
+  margin-right: 0.5%;
+  width: 50%;
+  font-size: 70%;
 }
 
 .mainConteiner {
@@ -38,7 +46,6 @@ button:hover {
   min-width: 100%;
   background-color: black;
   display: flex;
-  flex: 1;
   flex-direction: column;
 }
 
@@ -92,7 +99,7 @@ button:hover {
   opacity: 0.8;
   transition: background-color 0.5s ease;
   background-color: lightgrey;
-  padding: 1px;
+  padding: 2%;
   bottom: 0;
   border-color: #4d4d4d;
   border-width: 1px 1px 1px 1px;
@@ -100,9 +107,9 @@ button:hover {
 }
 
 .headerImage {
+  background-size: cover;
   height: 100%;
   width: auto;
-  max-width: 100%;
   cursor: pointer;
 }
 
@@ -118,18 +125,17 @@ button:hover {
 }
 
 .orderOptions {
+  margin: 2%;
   display: flex;
-  width: inherit;
-  justify-content: space-evenly;
+  width: 100%;
   align-items: center;
-  padding: 10px;
   color: white;
   background-color: black;
+  justify-content: space-between;
 }
 
 .search {
   width: 300px;
-  height: 30px;
   display: flex;
 }
 
@@ -150,27 +156,32 @@ button:hover {
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
+  width: 100%;
 }
 
 .pagination {
   display: inline-block;
 }
 
+.pagination ul {
+  display: flex;
+}
+
+.paginationConteiner button {
+  font-size: 70%;
+}
+
 .pagination a {
   border: none;
   color: white;
   float: left;
-  padding: 4px 8px;
+  padding: 4px 4px;
   text-decoration: none;
 }
 
 a:hover,
-:focus {
+a:focus {
   cursor: pointer;
-  color: red !important;
-}
-
-.hover {
   color: red !important;
 }
 
@@ -178,8 +189,11 @@ a:hover,
   display: flex;
 }
 
-.perPage button {
+.perPage a {
   outline: 0 !important;
+  cursor: pointer;
+  padding: 5px;
+  text-decoration: none;
   border: none;
   background-color: transparent;
   color: white;
@@ -189,8 +203,8 @@ a:hover,
 }
 
 .perPage button:hover,
-:focus,
-:active {
+.perPage button:focus,
+.perPage button:active {
   cursor: pointer;
   color: red;
 }
@@ -213,7 +227,6 @@ a:hover,
   right: 0;
   bottom: 10%;
   top: 10%;
-  /* font-size: 15px; */
   padding: 2%;
   width: 100%;
   height: 100%;
@@ -236,11 +249,22 @@ h3 {
   text-align: justify;
 }
 
+span {
+  color: white;
+}
+
 #artObject-Popup div {
-  margin-bottom: 2%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-grow: inherit;
+}
+
+.popup-content {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5%;
   flex-grow: inherit;
 }
 
@@ -301,6 +325,46 @@ h3 {
     max-width: 70%;
     min-height: 10%;
     max-height: 600px;
+  }
+
+  .search {
+    width: 300px;
+    height: 30px;
+    display: flex;
+  }
+
+  .search-input {
+    margin-right: 10px;
+  }
+
+  .orderOptions {
+    display: flex;
+    width: inherit;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    background-color: black;
+  }
+
+  .orderBy p {
+    display: inline-block;
+  }
+
+  .orderBy select {
+    height: 30px;
+  }
+
+  .paginationConteiner button {
+    font-size: 70%;
+    width: 60px;
+    ;
+  }
+
+  .popup-content {
+    display: flex;
+    flex-direction: row;
+
   }
 }
 

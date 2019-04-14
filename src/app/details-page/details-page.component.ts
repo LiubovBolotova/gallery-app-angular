@@ -17,16 +17,16 @@ export class DetailsPageComponent implements OnInit {
   public userQuery = {};
 
   constructor(
-    private artObjectService: ArtObjectService,
-    private route: ActivatedRoute,
+    private _artObjectService: ArtObjectService,
+    private _route: ActivatedRoute,
     private _router: Router,
   ) {}
 
-  ngOnInit() {
-    this.route.params
+  public ngOnInit() {
+    this._route.params
       .pipe(
         pluck('artObjectNumber'),
-        switchMap((artObjectNumber: string) => this.artObjectService.getOne$(artObjectNumber)),
+        switchMap((artObjectNumber: string) => this._artObjectService.getOne$(artObjectNumber)),
       )
       .subscribe((data) => {
         if (data) {

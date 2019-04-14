@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ArtObjectService } from '../art-object.service';
-import { catchError, filter, debounceTime } from 'rxjs/operators';
+import { catchError, filter } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 @Component({
@@ -13,7 +13,9 @@ import { throwError } from 'rxjs';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
   public currentPage: number;
-  public query = new FormControl('');
+  public query = new FormGroup({
+    keyword: new FormControl(''),
+  });
   public artObjects = [];
   public numberArtObjectInPopup;
   public isPopupShown: boolean = false;
@@ -27,32 +29,25 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public countOfPages: number;
   public noResultsIsShown = false;
 
-  private sub;
+  private _sub;
 
   constructor(
-    private artObjectService: ArtObjectService,
+    private _artObjectService: ArtObjectService,
     private _router: Router,
-    private route: ActivatedRoute,
+    private _route: ActivatedRoute,
   ) {}
 
-  ngOnInit() {
-    this.sub = this.route.queryParams
-      .pipe(filter((params) => params.artist))
-      .subscribe((params) => {
-        this.newQuery = params.artist || '';
-        this.search();
-      });
-    this.search(1);
+  public ngOnInit() {
+    this._sub = this._route.queryParams.subscribe((params) => {
+      debugger;
+      this.currentPage = +params.page;
+      this.searchByParams(+params.page, +params.perPage, params.orderBy, params.artist);
+    });
   }
 
-  public search(page?: number, perPage?: number, orderByParam?: string) {
-    this.artObjectService
-      .getList$(
-        this.query.value || this.newQuery || '',
-        page || this.currentPage || 1,
-        perPage || this.perPage || 10,
-        orderByParam,
-      )
+  public searchByParams(page?: number, perPage?: number, orderBy?: string, artist?: string): void {
+    this._artObjectService
+      .getList$(this.query.value.keyword, artist, page || 1, perPage || 10, orderBy)
       .pipe(
         catchError((err) => {
           console.log('caught mapping error and rethrowing', err);
@@ -60,12 +55,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe((data: any) => {
+        // debugger;
         if (data) {
           this.artObjects = data.artObjects.filter((artObject) => artObject.headerImage.url);
-          this.currentPage = page || 1;
+          // this.currentPage = page || 1;
           this.pages = [];
-          perPage ? (this.perPage = perPage) : (this.perPage = this.perPage);
-          this.orderBy = orderByParam || '';
+          // perPage ? (this.perPage = perPage) : (this.perPage = this.perPage);
+          // this.orderBy = orderByParam || '';
           this.countOfPages =
             Math.ceil(
               data.countFacets.ondisplay
@@ -73,7 +69,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
                 : data.countFacets.hasimage / (this.perPage || 10),
             ) || 1;
 
-          localStorage.setItem('page', JSON.stringify(this.currentPage));
+          // localStorage.setItem('page', JSON.stringify(this.currentPage));
 
           for (let i = 1; i <= this.countOfPages; i++) {
             this.pages.push(i);
@@ -81,11 +77,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
           this.pages.splice(0, this.currentPage - 2);
 
-          if (this.pages.length > 6 && this.currentPage !== this.countOfPages) {
-            this.pages = this.pages.filter(
-              (page) => page <= this.currentPage + 2 || page >= this.countOfPages - 2,
-            );
-          }
+          // if (this.pages.length > 6 && this.currentPage !== this.countOfPages) {
+          //   this.pages = this.pages.filter(
+          //     (page) => page <= this.currentPage + 2 || page >= this.countOfPages - 2,
+          //   );
+          // }
         }
         if (!data.count) {
           this.noResultsIsShown = true;
@@ -95,7 +91,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   public orderByParam(orderByParam: string): void {
-    this.search(this.currentPage, this.perPage, orderByParam);
+    this._router.navigate(['/main'], {
+      queryParams: { orderBy: orderByParam },
+      queryParamsHandling: 'merge',
+    });
   }
 
   public showArtObjectPopup(artObject): void {
@@ -118,19 +117,26 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   public prevPage(): void {
     this.currentPage >= 1 ? this.currentPage-- : (this.currentPage = 1);
-    this.search(this.currentPage);
+    this._router.navigate(['/main'], {
+      queryParams: { page: this.currentPage },
+      queryParamsHandling: 'merge',
+    });
+    // this.searchByParams(this.currentPage);
   }
 
   public nextPage(): void {
     this.currentPage !== this.countOfPages
       ? this.currentPage++
       : (this.currentPage = this.countOfPages);
-
-    this.search(this.currentPage);
+    this._router.navigate(['/main'], {
+      queryParams: { page: this.currentPage },
+      queryParamsHandling: 'merge',
+    });
+    // this.searchByParams(this.currentPage);
   }
 
   private _getArtObjectDescription(artObject): void {
-    this.artObjectService.getOne$(artObject.objectNumber).subscribe((data: any) => {
+    this._artObjectService.getOne$(artObject.objectNumber).subscribe((data: any) => {
       if (data) {
         this.description = data.artObject.description;
       }
@@ -138,6 +144,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this._sub.unsubscribe();
   }
 }

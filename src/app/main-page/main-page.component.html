@@ -5,88 +5,99 @@
 
   <section class="orderOptions">
     <div class="search">
-      <input class="search-input" placeholder="Search keyword" [formControl]="query" />
+      <form [formGroup]="query" (ngSubmit)="searchByParams()">
+        <input class="search-input" placeholder="keyword" formControlName="keyword" />
 
-      <button (click)="search()">Search</button>
+        <button type="submit" [disabled]="!query.valid">Search</button>
+      </form>
     </div>
 
     <div class="orderBy">
-      <label>
-        Order By
-        <select (change)="orderByParam($event.target.value)">
-          <option>relevance</option>
+      <p>Order By</p>
 
-          <option>objecttype</option>
+      <select (change)="orderByParam($event.target.value)">
+        <option>relevance</option>
 
-          <option>chronologic</option>
+        <option>objecttype</option>
 
-          <option>achronologic</option>
+        <option>chronologic</option>
 
-          <option>artist</option>
+        <option>achronologic</option>
 
-          <option>artistdesc</option>
-        </select>
-      </label>
+        <option>artist</option>
+
+        <option>artistdesc</option>
+      </select>
     </div>
   </section>
 
   <section class="viewParametrs">
     <div class="paginationConteiner">
-      <button
-        [routerLink]="['/main', currentPage > 1 ? currentPage - 1 : 1]"
-        [queryParams]="newQuery !== '' ? { artist: newQuery } : ''"
-        (click)="prevPage()"
-      >
-        Prev Page
+      <button [disabled]="currentPage === 1" (click)="prevPage()">
+        Prev
       </button>
 
-      <div class="pagination" *ngFor="let page of pages">
-        <a
-          [routerLink]="['/main', page]"
-          [queryParams]="newQuery !== '' ? { artist: newQuery } : ''"
-          (click)="search(page)"
-          [className]="page === currentPage ? 'hover' : 'no-Hover'"
-        >
-          {{ page }}
-          <span *ngIf="countOfPages > 6 && page === currentPage + 2">
-            ...
-          </span>
-        </a>
+      <div class="pagination">
+        <ul>
+          <li *ngFor="let page of (pages | slice: 0:3)">
+            <a
+              [routerLink]="['/main']"
+              [queryParams]="{ page: page }"
+              queryParamsHandling="merge"
+              (click)="searchByParams()"
+              [className]="page === currentPage ? 'hover' : 'no-Hover'"
+            >
+              {{ page }}
+            </a>
+          </li>
+
+          <li *ngIf="countOfPages > 6">
+            <span>
+              ...
+            </span>
+          </li>
+
+          <li *ngFor="let page of (pages | slice: -3)">
+            <a
+              [routerLink]="['/main']"
+              [queryParams]="{ page: page }"
+              queryParamsHandling="merge"
+              (click)="searchByParams()"
+              [className]="page === currentPage ? 'hover' : 'no-Hover'"
+            >
+              {{ page }}
+            </a>
+          </li>
+        </ul>
       </div>
 
-      <button
-        [routerLink]="['/main', countOfPages === 1 ? 1 : currentPage + 1]"
-        [queryParams]="newQuery !== '' ? { artist: newQuery } : ''"
-        (click)="nextPage()"
-      >
-        Next Page
+      <button [disabled]="countOfPages === 1" (click)="nextPage()">
+        Next
       </button>
     </div>
-
     <div class="perPage">
-      <button type="button" (click)="search(currentPage, 10)">
+      <a [routerLink]="['/main']" [queryParams]="{ perPage: 10 }" queryParamsHandling="merge">
         10
-      </button>
+      </a>
 
-      <button type="button" (click)="search(currentPage, 50)">
+      <a [routerLink]="['/main']" [queryParams]="{ perPage: 50 }" queryParamsHandling="merge">
         50
-      </button>
+      </a>
 
-      <button type="button" (click)="search(currentPage, 100)">
+      <a [routerLink]="['/main']" [queryParams]="{ perPage: 100 }" queryParamsHandling="merge">
         100
-      </button>
+      </a>
     </div>
   </section>
 
   <section class="gallery">
     <ul class="artObjConteiner" *ngIf="artObjects.length">
       <li class="artObject" *ngFor="let artObject of artObjects">
-        <img
+        <div
           class="headerImage"
-          [src]="artObject.headerImage.url"
+          [style.backgroundImage]="'url(' + artObject.headerImage.url + ')'"
           (click)="showArtObjectPopup(artObject)"
-          *ngIf="artObject.headerImage.url"
-        />
+        ></div>
 
         <div class="artObj-modal">
           <p>{{ artObject.longTitle }}</p>
@@ -107,7 +118,7 @@
 </div>
 
 <div id="artObject-Popup" *ngIf="artObject && isPopupShown">
-  <div>
+  <div class="popup-content">
     <div class="webImage">
       <img [src]="artObject.webImage.url" />
     </div>
