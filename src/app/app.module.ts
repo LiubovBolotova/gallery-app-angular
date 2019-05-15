@@ -10,9 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DetailsPageComponent } from './details-page/details-page.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { PopupComponent } from './main-page/popup/popup.component';
 
 @NgModule({
-  declarations: [AppComponent, MainPageComponent, DetailsPageComponent],
+  declarations: [AppComponent, MainPageComponent, DetailsPageComponent, PopupComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,

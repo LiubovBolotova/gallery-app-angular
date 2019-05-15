@@ -8,13 +8,13 @@ export class ArtObjectService {
 
   constructor(private http: HttpClient) {}
 
-  public getList$(query, artist, page, perPage, orderBy) {
+  public getList$(query, perPage, page, orderBy) {
     const params = this.getBasicParams()
       .set('q', query)
-      .set('maker', artist)
       .set('p', page)
       .set('ps', perPage)
-      .set('s', orderBy);
+      .set('s', orderBy)
+      .set('culture', 'en');
 
     return this.http.get(this.baseUrl, { params });
   }

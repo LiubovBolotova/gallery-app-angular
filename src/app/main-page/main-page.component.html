@@ -5,7 +5,7 @@
 
   <section class="orderOptions">
     <div class="search">
-      <form [formGroup]="query" (ngSubmit)="searchByParams()">
+      <form [formGroup]="query" (ngSubmit)="searchByQuery()">
         <input class="search-input" placeholder="keyword" formControlName="keyword" />
 
         <button type="submit" [disabled]="!query.valid">Search</button>
@@ -39,13 +39,13 @@
 
       <div class="pagination">
         <ul>
-          <li *ngFor="let page of (pages | slice: 0:3)">
+          <li *ngFor="let page of (pages | slice: page:3)">
             <a
               [routerLink]="['/main']"
               [queryParams]="{ page: page }"
               queryParamsHandling="merge"
               (click)="searchByParams()"
-              [className]="page === currentPage ? 'hover' : 'no-Hover'"
+              [className]="page === currentPage ? 'hover' : 'no-hover'"
             >
               {{ page }}
             </a>
@@ -59,11 +59,12 @@
 
           <li *ngFor="let page of (pages | slice: -3)">
             <a
+              *ngIf="pages.length > 3"
               [routerLink]="['/main']"
               [queryParams]="{ page: page }"
               queryParamsHandling="merge"
               (click)="searchByParams()"
-              [className]="page === currentPage ? 'hover' : 'no-Hover'"
+              [className]="page === currentPage ? 'hover' : 'no-hover'"
             >
               {{ page }}
             </a>
@@ -71,20 +72,32 @@
         </ul>
       </div>
 
-      <button [disabled]="countOfPages === 1" (click)="nextPage()">
+      <button [disabled]="countOfPages === 1 && currentPage === countOfPages" (click)="nextPage()">
         Next
       </button>
     </div>
     <div class="perPage">
-      <a [routerLink]="['/main']" [queryParams]="{ perPage: 10 }" queryParamsHandling="merge">
+      <a
+        [routerLink]="['/main']"
+        [queryParams]="{ perPage: 10, page: 1 }"
+        queryParamsHandling="merge"
+      >
         10
       </a>
 
-      <a [routerLink]="['/main']" [queryParams]="{ perPage: 50 }" queryParamsHandling="merge">
+      <a
+        [routerLink]="['/main']"
+        [queryParams]="{ perPage: 50, page: 1 }"
+        queryParamsHandling="merge"
+      >
         50
       </a>
 
-      <a [routerLink]="['/main']" [queryParams]="{ perPage: 100 }" queryParamsHandling="merge">
+      <a
+        [routerLink]="['/main']"
+        [queryParams]="{ perPage: 100, page: 1 }"
+        queryParamsHandling="merge"
+      >
         100
       </a>
     </div>
@@ -117,26 +130,4 @@
   </div>
 </div>
 
-<div id="artObject-Popup" *ngIf="artObject && isPopupShown">
-  <div class="popup-content">
-    <div class="webImage">
-      <img [src]="artObject.webImage.url" />
-    </div>
-
-    <div class="artObject-Popup-description" *ngIf="description">
-      <h3>
-        <i>{{ artObject.title }}</i>
-      </h3>
-
-      <p>{{ description }}</p>
-    </div>
-  </div>
-
-  <div class="popup-buttons">
-    <button type="button" (click)="goToDetailsPage(artObject.objectNumber)">
-      View more details
-    </button>
-
-    <button (click)="closePopup()">Close</button>
-  </div>
-</div>
+<app-popup (popupIsClosed)="closePopup()" *ngIf="isPopupShown"></app-popup>

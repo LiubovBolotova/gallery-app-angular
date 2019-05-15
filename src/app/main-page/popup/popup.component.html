@@ -1,0 +1,32 @@
+<div id="artObject-Popup" *ngIf="artObject">
+  <div class="popup-content">
+    <div class="webImage">
+      <img [src]="artObject.artObject.webImage.url" />
+    </div>
+
+    <div class="artObject-Popup-description" *ngIf="artObject.artObject.description">
+      <h3>
+        <i>{{ artObject.artObject.title }}</i>
+      </h3>
+
+      <p>{{ artObject.artObject.description }}</p>
+    </div>
+  </div>
+
+  <div class="popup-buttons">
+    <a
+      [routerLink]="['/details']"
+      [queryParams]="{
+        artObjectNumber: objectNumber,
+        page: page,
+        query: query || '',
+        orderBy: orderBy || '',
+        perPage: perPage || 10
+      }"
+    >
+      View more details
+    </a>
+
+    <button (click)="popupIsClosed.emit()">Close</button>
+  </div>
+</div>

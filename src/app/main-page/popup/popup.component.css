@@ -1,0 +1,167 @@
+#artObject-Popup {
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  top: 10%;
+  padding: 2%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(113, 111, 111);
+  z-index: 5;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.5s linear;
+  color: #f1f1f1;
+}
+
+#artObject-Popup p,
+h3 {
+  bottom: 5%;
+  line-height: 1.5;
+  font-size: 3vw;
+  text-align: justify;
+}
+
+span {
+  color: white;
+}
+
+#artObject-Popup div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-grow: inherit;
+}
+
+.popup-content {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5%;
+  flex-grow: inherit;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.5s linear;
+  border-radius: 3px;
+  max-height: 50px;
+  outline: 0;
+  outline-offset: 0;
+  font-family: inherit;
+  color: black;
+  background-color: white;
+  min-width: 20%;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 2px 6px 3px;
+  border-width: 2px;
+  border-style: outset;
+  border-color: buttonface;
+  border-image: initial;
+}
+
+a:hover {
+  background-color: #999;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+
+.webImage {
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  border-radius: 5px;
+  max-width: 100%;
+  min-width: 20%;
+  max-height: 100%;
+  min-height: 80%;
+  margin-right: 3%;
+}
+
+.webImage img {
+  width: 100%;
+  height: auto;
+  box-shadow: 2px 2px 2px #999;
+}
+
+.artObject-Popup-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  max-width: 90%;
+  min-width: 20%;
+  flex-grow: inherit;
+}
+
+@media (min-width: 760px) {
+  #artObject-Popup {
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 10%;
+    top: 10%;
+    max-height: 90%;
+    min-height: 40%;
+    max-width: 70%;
+    min-width: 40%;
+    border-radius: 15px;
+    background-color: rgba(113, 111, 111, 0.8);
+    border: 3px solid #f1f1f1;
+    box-shadow: 0 0 30px rgb(212, 228, 228);
+  }
+
+  #artObject-Popup p,
+  h3 {
+    bottom: 5%;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+
+  .webImage {
+    margin: 0;
+    max-width: 80%;
+    min-width: 5%;
+    max-height: 100%;
+    min-height: 10%;
+    border-radius: 5px;
+  }
+
+  .webImage img {
+    min-width: 10%;
+    max-width: 70%;
+    min-height: 10%;
+    max-height: 600px;
+  }
+
+  .popup-content {
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .artObject-Popup-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    max-width: 90%;
+    min-width: 20%;
+    flex-grow: inherit;
+  }
+
+  #artObject-Popup button {
+    min-width: 20%;
+    min-height: 100%;
+  }
+
+  .popup-buttons {
+    width: 70%;
+    min-height: 5%;
+    margin: 0 auto;
+  }
+}

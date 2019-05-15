@@ -14,11 +14,7 @@
         <i>{{ artObject.artObject.title }}</i>
       </h3>
 
-      <a
-        [routerLink]="['/main']"
-        [queryParams]="{ artist: maker, page: 1 }"
-        queryParamsHandling="merge"
-      >
+      <a [routerLink]="['/main']" [queryParams]="{ query: maker, orderBy: 'artist' }">
         <i>{{ maker }} </i>
       </a>
 
@@ -28,8 +24,12 @@
 
       <p>{{ artObject.artObject.description }}</p>
 
-      <a [routerLink]="['/main']" [queryParams]="{ page: page }" queryParamsHandling="merge"
-        >Back to gallery</a
+      <a
+        [routerLink]="['/main']"
+        [queryParams]="{ page: page, perPage: perPage, orderBy: orderBy }"
+        queryParamsHandling="merge"
+      >
+        Back to gallery</a
       >
     </div>
   </section>

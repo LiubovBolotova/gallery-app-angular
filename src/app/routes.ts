@@ -1,6 +1,7 @@
-import { MainPageComponent } from './main-page/main-page.component';
-import { Routes } from '@angular/router';
 import { DetailsPageComponent } from './details-page/details-page.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { PopupComponent } from './main-page/popup/popup.component';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
@@ -20,7 +21,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'details/:artObjectNumber',
+    path: 'details',
     component: DetailsPageComponent,
   },
 ];
